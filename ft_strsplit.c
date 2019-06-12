@@ -6,7 +6,7 @@
 /*   By: rbolton <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 13:53:29 by rbolton           #+#    #+#             */
-/*   Updated: 2019/06/06 16:56:30 by rbolton          ###   ########.fr       */
+/*   Updated: 2019/06/12 11:54:44 by rbolton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static char		**ft_splitter(char **arr, const char *s, char c)
 		if (s[i] != c && s[i] != '\0')
 		{
 			wl = ft_wordlen(s + i, c);
-			arr[k] = ft_strnew(wl);
+			if ((arr[k] = ft_strnew(wl)) == NULL)
+				return (NULL);
 			ft_strncpy(arr[k], s + i, wl);
 			k++;
 		}
@@ -84,7 +85,8 @@ char			**ft_strsplit(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	wc = ft_wordcnt(s, c);
-	arr = (char **)malloc((wc + 1) * sizeof(char *));
+	if ((arr = (char **)malloc((wc + 1) * sizeof(char *))) == NULL)
+		return (NULL);
 	if (!wc)
 		arr[0] = NULL;
 	else
